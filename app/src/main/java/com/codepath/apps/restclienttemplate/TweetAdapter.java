@@ -50,8 +50,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         // populate the views according to this data
         holder.tvUsername.setText(tweet.user.name);
         holder.tvBody.setText(tweet.body);
-        holder.tvTimeStamp.setText(TimeFormatter.getTimeDifference(tweet.createdAt));
-        holder.tvScreenName.setText("@" + tweet.user.screenName);
+        holder.tvTimeStamp.setText(" · " + TimeFormatter.getTimeDifference(tweet.createdAt));
+        holder.tvScreenName.setText(" @" + tweet.user.screenName);
 
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)
