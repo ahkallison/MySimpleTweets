@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by ahkallison on 6/26/17.
  */
@@ -49,7 +51,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvUsername.setText(tweet.user.name);
         holder.tvBody.setText(tweet.body);
 
-        Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
+        Glide.with(context)
+                .load(tweet.user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+                .into(holder.ivProfileImage);
     }
 
     @Override
