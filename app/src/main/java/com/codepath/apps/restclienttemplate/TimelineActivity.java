@@ -1,16 +1,21 @@
 package com.codepath.apps.restclienttemplate;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -22,6 +27,31 @@ public class TimelineActivity extends AppCompatActivity {
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+    // a numeric code to identify the edit activity
+    static final int EDIT_REQUEST_CODE = 20;
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // inflate the menu and add items to the action bar if it is present
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.miCompose:
+                composeMessage();
+                return true;
+            case R.id.miProfile:
+                showProfileView();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,5 +123,32 @@ public class TimelineActivity extends AppCompatActivity {
                 throwable.printStackTrace();
             }
         });
+    }
+    // launch subactivity
+    public void composeMessage() {
+//        Toast.makeText(this, "COMPOSE!!!", Toast.LENGTH_LONG).show();
+        // create the new activity
+        Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+        startActivityForResult(i, EDIT_REQUEST_CODE);
+    }
+
+    public void showProfileView() {
+        Toast.makeText(this, "PROFILE!!!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == EDIT_REQUEST_CODE) {
+            // extract name value from result extras
+            String sTweet = data.getExtras().getString("tweet");
+            int code = data.getExtras().getInt("code", 0);
+            // insert new tweet into arraylist
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+            tweets.add(0, tweet);
+            tweetAdapter.notifyItemInserted(0);
+            rvTweets.scrollToPosition(0);
+            // Toast the tweet to display temporarily on screen
+            Toast.makeText(this, sTweet, Toast.LENGTH_SHORT).show();
+        }
     }
 }

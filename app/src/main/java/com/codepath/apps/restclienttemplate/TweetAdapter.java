@@ -20,6 +20,9 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
+    // a numeric code to identify the edit activity
+    static final int EDIT_REQUEST_CODE = 20;
+
     private List<Tweet> mTweets;
     Context context;
     // pass in the Tweets array in the constructor
@@ -83,7 +86,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvTimeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
             tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
-
         }
     }
 }

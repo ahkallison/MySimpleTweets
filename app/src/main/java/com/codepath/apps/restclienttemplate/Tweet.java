@@ -2,11 +2,13 @@ package com.codepath.apps.restclienttemplate;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by ahkallison on 6/26/17.
  */
 
+@Parcel
 public class Tweet {
 
     // list out the attributes
