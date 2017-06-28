@@ -24,13 +24,13 @@
 
     <TextView
         android:id="@+id/tvBody"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:text="TextView"
+        android:layout_alignBottom="@+id/ivProfileImage"
         android:layout_below="@+id/tvUserName"
+        android:layout_marginLeft="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:layout_alignBottom="@+id/ivProfileImage"/>
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/tvTimeStamp"
@@ -47,4 +47,49 @@
         android:text="TextView"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/tvUserName" />
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"></LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_vector_heart_stroke"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_below="@+id/tvBody"
+        android:layout_toEndOf="@+id/btnRetweet"
+        android:layout_marginRight="20dp"/>
+
+    <ImageButton
+        android:id="@+id/btnReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvBody"
+        android:layout_below="@+id/tvBody"
+        android:backgroundTint="@android:color/transparent"
+        app:srcCompat="@drawable/ic_vector_compose_dm"
+        android:layout_marginRight="20dp" />
+
+    <ImageButton
+        android:id="@+id/btnRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_toEndOf="@+id/btnReply"
+        android:backgroundTint="@android:color/transparent"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke"
+        android:layout_marginRight="20dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_toEndOf="@+id/btnFavorite"
+        android:backgroundTint="@android:color/transparent"
+        app:srcCompat="@drawable/ic_vector_messages_stroke"
+        android:layout_marginRight="20dp" />
 </RelativeLayout>

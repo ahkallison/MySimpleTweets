@@ -16,6 +16,8 @@ public class Tweet {
     public long uid; // database ID for the tweet
     public User user;
     public String createdAt;
+    public Integer favoriteCount;
+    public Integer retweetCount;
 
     // deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -26,6 +28,8 @@ public class Tweet {
         tweet.uid = jsonObject.getLong("id");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+//        tweet.favoriteCount = jsonObject.getInt("favourites_count");
+//        tweet.retweetCount = jsonObject.getInt("retweet_count");
         return tweet;
     }
 //
