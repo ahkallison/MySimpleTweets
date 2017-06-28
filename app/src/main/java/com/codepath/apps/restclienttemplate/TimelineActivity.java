@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -31,7 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
     // a numeric code to identify the edit activity
     static final int EDIT_REQUEST_CODE = 20;
     private SwipeRefreshLayout swipeContainer;
-
+    MenuItem miActionProgressitem;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,6 +58,26 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // store instance of the menu item containing progress
+        miActionProgressitem = menu.findItem(R.id.miActionProgress);
+        // extract the action-view from the menu item
+        ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgressitem);
+        // return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressitem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressitem.setVisible(false);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
@@ -69,6 +91,7 @@ public class TimelineActivity extends AppCompatActivity {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
+                showProgressBar();
                 fetchTimelineAsync(0);
             }
         });
@@ -105,6 +128,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         client.getHomeTimeline(0, new JsonHttpResponseHandler() {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                hideProgressBar();
                 // Remember to CLEAR OUT old items before appending in the new ones
                 tweetAdapter.clear();
                 for (int i = 0; i < response.length(); i++) {
@@ -124,7 +148,6 @@ public class TimelineActivity extends AppCompatActivity {
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.setRefreshing(false);
             }
-
             public void onFailure(Throwable e) {
                 Log.d("DEBUG", "Fetch timeline error: " + e.toString());
             }
