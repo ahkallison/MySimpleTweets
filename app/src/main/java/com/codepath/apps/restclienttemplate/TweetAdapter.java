@@ -88,4 +88,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
         }
     }
+
+    // clean all elements of the recycler
+    public void clear() {
+        mTweets.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Tweet> list) {
+        mTweets.addAll(list);
+        notifyDataSetChanged();
+    }
+
 }
