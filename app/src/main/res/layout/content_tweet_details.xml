@@ -61,13 +61,13 @@
 
         <TextView
             android:id="@+id/tvRetweets"
-            android:layout_width="75dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/tvLikes"
-            android:layout_width="75dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTimeStamp"
             android:text="TextView" />

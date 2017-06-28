@@ -39,8 +39,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvBody = (TextView) findViewById(R.id.tvBody);
         tvTimeStamp = (TextView) findViewById(R.id.tvTimeStamp);
         tvScreenName = (TextView) findViewById(R.id.tvScreenName);
-//        tvRetweets = (TextView) findViewById(R.id.tvRetweets);
-//        tvLikes = (TextView) findViewById(R.id.tvLikes);
+        tvRetweets = (TextView) findViewById(R.id.tvRetweets);
+        tvLikes = (TextView) findViewById(R.id.tvLikes);
 
         // initialize the client?
 
@@ -52,8 +52,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvBody.setText(tweet.body);
         tvTimeStamp.setText(TimeFormatter.getTimeStamp(tweet.createdAt));
         tvScreenName.setText("@" + tweet.user.screenName);
-//        tvRetweets.setText(String.valueOf(tweet.favoriteCount) + "Retweets");
-//        tvLikes.setText(String.valueOf(tweet.retweetCount) + "Likes");
+        tvLikes.setText(String.valueOf(tweet.favoriteCount) + " Likes");
+        tvRetweets.setText(String.valueOf(tweet.retweetCount) + " Retweets");
 
         Glide.with(this)
                 .load(tweet.user.profileImageUrl)
