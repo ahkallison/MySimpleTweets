@@ -128,7 +128,6 @@ public class TimelineActivity extends AppCompatActivity {
 
         client.getHomeTimeline(0, new JsonHttpResponseHandler() {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                hideProgressBar();
                 // Remember to CLEAR OUT old items before appending in the new ones
                 tweetAdapter.clear();
                 for (int i = 0; i < response.length(); i++) {
@@ -147,6 +146,7 @@ public class TimelineActivity extends AppCompatActivity {
                 tweetAdapter.addAll(tweets);
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.setRefreshing(false);
+                hideProgressBar();
             }
             public void onFailure(Throwable e) {
                 Log.d("DEBUG", "Fetch timeline error: " + e.toString());
