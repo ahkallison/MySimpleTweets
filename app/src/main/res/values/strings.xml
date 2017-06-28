@@ -6,5 +6,6 @@
     <string name="intent_scheme">isOAuth</string>
     <string name="intent_host">ihCprest</string>
     <string name="compose_label">What\'s happening?</string>
+    <string name="title_activity_tweet_details">TweetDetailsActivity</string>
 
 </resources>
