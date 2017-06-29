@@ -48,6 +48,7 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("count", 25);
 		params.put("since_id", 1);
+		params.put("include_entities", true);
 		client.get(apiUrl, params, handler);
 	}
 
@@ -57,6 +58,32 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("status", message);
 		client.post(apiUrl, params, handler);
+	}
+
+	public void postFavorite(boolean b, Long id, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		if (b) {
+			String apiUrl = getApiUrl("favorites/create.json");
+			params.put("id", id);
+			client.post(apiUrl, params, handler);
+		} else {
+			String apiUrl = getApiUrl("favorites/destroy.json");
+			params.put("id", id);
+			client.post(apiUrl, params, handler);
+		}
+	}
+
+	public void postRetweet(boolean b, Long id, AsyncHttpResponseHandler handler) {
+		RequestParams params = new RequestParams();
+		if (b) {
+			String apiUrl = getApiUrl("statuses/retweet/" + Long.toString(id) + ".json");
+			params.put("id", id);
+			client.post(apiUrl, params, handler);
+		} else {
+			String apiUrl = getApiUrl("statuses/unretweet/" + Long.toString(id) + ".json");
+			params.put("id", id);
+			client.post(apiUrl, params, handler);
+		}
 	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint

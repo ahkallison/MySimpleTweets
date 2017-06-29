@@ -209,7 +209,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void showProfileView() {
-        Toast.makeText(this, "PROFILE!!!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "PROFILE!!!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

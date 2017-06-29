@@ -1,15 +1,24 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetDetailsActivity extends AppCompatActivity {
@@ -24,8 +33,12 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvScreenName;
     TextView tvRetweets;
     TextView tvLikes;
+    ImageButton btnFavorited;
+    ImageButton btnRetweeted;
+    TextView ivMedia;
 
     // declare client
+    TwitterClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +54,9 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvScreenName = (TextView) findViewById(R.id.tvScreenName);
         tvRetweets = (TextView) findViewById(R.id.tvRetweets);
         tvLikes = (TextView) findViewById(R.id.tvLikes);
+        btnFavorited = (ImageButton) findViewById(R.id.btnFavorited);
+        btnRetweeted = (ImageButton) findViewById(R.id.btnRetweeted);
+//        ivMedia = (ImageView) findViewById(R.id.ivMedia);
 
         // initialize the client?
 
@@ -54,11 +70,145 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvScreenName.setText("@" + tweet.user.screenName);
         tvLikes.setText(String.valueOf(tweet.favoriteCount) + " Likes");
         tvRetweets.setText(String.valueOf(tweet.retweetCount) + " Retweets");
+        if (tweet.favorited) {
+            btnFavorited.setImageResource(R.drawable.ic_vector_heart);
+        } else {
+            btnFavorited.setImageResource(R.drawable.ic_vector_heart_stroke);
+        }
+        if (tweet.retweeted) {
+            btnRetweeted.setImageResource(R.drawable.ic_vector_retweet);
+        } else {
+            btnRetweeted.setImageResource(R.drawable.ic_vector_retweet_stroke);
+        }
 
         Glide.with(this)
                 .load(tweet.user.profileImageUrl)
                 .bitmapTransform(new RoundedCornersTransformation(this, 25, 0))
                 .into(ivProfileImage);
+
+//        // check about media
+//        String mediaImageUrl = null;
+//            if (tweet.entities.media != null) {
+//                String type = tweet.entities.media.get(0).type;
+//                if (type.equals("photo")) {
+//                    mediaImageUrl = tweet.entities.media.get(0).mediaUrl;
+//                } else {
+//                    mediaImageUrl = "'";
+//                }
+//                    System.out.println("mediaImageUrl" + mediaImageUrl);
+//            }
+//
+//        Glide.with(this)
+//                .load(mediaImageUrl)
+//                .into(ivMedia);
+
+
+//        Glide.with(this)
+////        ivMedia = tweet.entities.media
+//
+//        Toast.makeText(this, )
+        btnFavorited.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // deal with favorites
+                if(tweet.favorited) {
+                    Toast.makeText(getApplicationContext(), "Unfavorite!", Toast.LENGTH_SHORT).show();
+                    tweet.favorited = false;
+                    btnFavorited.setImageResource(R.drawable.ic_vector_heart_stroke);
+                    TwitterApplication.getRestClient().postFavorite(false, tweet.uid, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                            Tweet tweet = null;
+                            try {
+                                tweet = Tweet.fromJSON(response);
+                            } catch (JSONException e) {
+                                Log.e("TAG", "tweet not taken from json correctly");
+                            }
+
+                            tvLikes.setText(String.valueOf(tweet.favoriteCount) + " Likes");
+                        }
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Favorite!", Toast.LENGTH_SHORT).show();
+                    tweet.favorited = true;
+                    btnFavorited.setImageResource(R.drawable.ic_vector_heart);
+                    TwitterApplication.getRestClient().postFavorite(true, tweet.uid, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                            Tweet tweet = null;
+                            try {
+                                tweet = Tweet.fromJSON(response);
+                            } catch (JSONException e) {
+                                Log.e("TAG", "tweet not taken from json correctly");
+                            }
+
+                            tvLikes.setText(String.valueOf(tweet.favoriteCount) + " Likes");
+                        }
+                    });
+                }
+
+                // create intent for the new activity
+                Intent intent = new Intent(getApplicationContext(), TweetDetailsActivity.class);
+                // serialize the movie using parceler, use its short name as a key
+                intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+
+            }
+        });
+
+        btnRetweeted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // deal with favorites
+                if(tweet.retweeted) {
+                    tweet.retweeted = false;
+                    btnRetweeted.setImageResource(R.drawable.ic_vector_retweet_stroke);
+                    TwitterApplication.getRestClient().postRetweet(false, tweet.uid, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                            Tweet tweet = null;
+                            try {
+                                tweet = Tweet.fromJSON(response);
+                            } catch (JSONException e) {
+                                Log.e("TAG", "tweet not taken from json correctly");
+                            }
+                            tvRetweets.setText(String.valueOf(tweet.retweetCount - 1) + " Retweets");
+                        }
+                    });
+                } else {
+                    tweet.retweeted = true;
+                    btnRetweeted.setImageResource(R.drawable.ic_vector_retweet);
+                    TwitterApplication.getRestClient().postRetweet(true, tweet.uid, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                            Tweet tweet = null;
+                            try {
+                                tweet = Tweet.fromJSON(response);
+                            } catch (JSONException e) {
+                                Log.e("TAG", "tweet not taken from json correctly");
+                            }
+                            tvRetweets.setText(String.valueOf(tweet.retweetCount) + " Retweets");
+                        }
+                    });
+                }
+
+                // create intent for the new activity
+                Intent intent = new Intent(getApplicationContext(), TweetDetailsActivity.class);
+                // serialize the movie using parceler, use its short name as a key
+                intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+            }
+
+        });
+    }
+}
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +218,6 @@ public class TweetDetailsActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-    }
 
-}
+
+

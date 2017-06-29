@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -21,6 +22,7 @@ import cz.msebera.android.httpclient.Header;
 public class ComposeActivity extends AppCompatActivity {
 
     EditText etTweet;
+    ImageView ivProfile;
     Tweet tweet;
     private TextView tvCount;
 
@@ -30,6 +32,7 @@ public class ComposeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_compose);
         etTweet = (EditText) findViewById(R.id.etTweet);
         tvCount = (TextView) findViewById(R.id.tvCount);
+        ivProfile = (ImageView) findViewById(R.id.ivProfile);
 
         final TextWatcher txwatcher = new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
