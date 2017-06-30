@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SimpleTweet</string>
+    <string name="app_name">Twitter</string>
     <string name="login_label">Log in</string>
     <string name="intent_scheme">isOAuth</string>
     <string name="intent_host">ihCprest</string>
     <string name="compose_label">What\'s happening?</string>
-    <string name="title_activity_tweet_details">TweetDetailsActivity</string>
+    <string name="title_activity_tweet_details">Tweet</string>
 
 </resources>

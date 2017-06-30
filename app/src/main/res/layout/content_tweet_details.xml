@@ -50,17 +50,26 @@
         android:layout_alignStart="@+id/ivProfileImage"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:text="TextView"
         android:textColor="@android:color/black"
         android:textSize="20dp" />
+
+    <ImageView
+        android:id="@+id/ivMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignStart="@+id/tvBody"
+        android:adjustViewBounds="true"
+        android:layout_marginRight="12dp"/>
 
     <TextView
         android:id="@+id/tvTimeStamp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivMedia"
         android:layout_alignStart="@+id/tvBody"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"/>
@@ -124,7 +133,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/btnReply"
         android:background="@drawable/ic_vector_retweet_stroke"
-        android:layout_marginRight="70dp" />
+        android:layout_marginRight="70dp"
+        android:tint="@color/btn_disabled"/>
 
     <ImageButton
         android:id="@+id/btnFavorited"
@@ -132,14 +142,16 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_vector_heart_stroke"
         android:layout_marginRight="70dp"
-        android:layout_toRightOf="@+id/btnRetweeted"/>
+        android:layout_toRightOf="@+id/btnRetweeted"
+        android:tint="@color/btn_disabled"/>
 
     <ImageButton
         android:id="@+id/btnDM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/btnFavorited"
-        android:background="@drawable/ic_vector_messages_stroke" />
+        android:background="@drawable/ic_vector_messages_stroke"
+        android:tint="@color/btn_disabled"/>
 </LinearLayout>
 
     <View

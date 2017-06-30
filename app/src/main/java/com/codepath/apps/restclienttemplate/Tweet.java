@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
@@ -20,7 +21,8 @@ public class Tweet {
     public Integer retweetCount;
     public Boolean favorited;
     public Boolean retweeted;
-//    public JSONObject entities;
+    public String media_url_https;
+    public String type;
 
     // deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -43,11 +45,19 @@ public class Tweet {
         }
         tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.retweeted = jsonObject.getBoolean("retweeted");
-//        try {
-//            tweet.entities = jsonObject.getJSONObject("entities");
-//        } catch (JSONException e) {
-//            tweet.entities = null;
-//        }
+        JSONArray mediaArray = jsonObject.getJSONObject("entities").getJSONArray("media");
+        try {
+            tweet.media_url_https = mediaArray.getJSONObject(0).getString("media_url_https");
+        } catch (JSONException e) {
+            tweet.media_url_https = "";
+        }
+        try {
+            tweet.type = mediaArray.getJSONObject(0).getString("type");
+        } catch (JSONException e) {
+            tweet.type = "";
+        }
+
+
         return tweet;
     }
 //

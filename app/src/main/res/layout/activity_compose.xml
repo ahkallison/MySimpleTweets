@@ -27,27 +27,78 @@
         android:maxLength="140"
         android:hint="What's happening?"></EditText>
 
-    <TextView
-        android:id="@+id/tvCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="140"
-        android:layout_alignBaseline="@+id/post_btn"
-        android:layout_alignBottom="@+id/post_btn" />
 
-    <Button
-        android:id="@+id/post_btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape"
-        android:onClick="onSubmit"
-        android:text="Tweet"
-        android:minHeight="25dp"
-        android:minWidth="65dp"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:layout_below="@+id/etTweet"
-        android:layout_alignParentEnd="true"
-        android:state_pressed="true"/>
+        android:layout_below="@id/etTweet"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/etTweet">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btnPhoto"
+                android:background="@drawable/ic_vector_photo_stroke"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:tint="@color/twitter_blue"/>
+
+            <ImageButton
+                android:id="@+id/btnGif"
+                android:background="@drawable/ic_vector_gif_pill_stroke"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:tint="@color/twitter_blue"/>
+
+            <ImageButton
+                android:id="@+id/btnQuestion"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:background="@android:drawable/ic_menu_help"
+                android:tint="@color/twitter_blue"/>
+
+            <ImageButton
+                android:id="@+id/btnLocation"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/ic_vector_location_stroke"
+                android:tint="@color/twitter_blue"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="140"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:layout_alignBaseline="@+id/post_btn"
+            android:layout_alignBottom="@+id/post_btn" />
+
+        <Button
+            android:id="@+id/post_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/shape"
+            android:onClick="onSubmit"
+            android:text="Tweet"
+            android:minHeight="30dp"
+            android:minWidth="100dp"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/etTweet"
+            android:layout_alignParentEnd="true"
+            android:state_pressed="true"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

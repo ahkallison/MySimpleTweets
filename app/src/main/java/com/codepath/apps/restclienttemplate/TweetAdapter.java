@@ -88,18 +88,19 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
                 .into(holder.ivProfileImage);
 
-//        public void setFavorited() {
-//            if(tweet.favorited) {
-//                Toast.makeText(context, "Unfavorite!", Toast.LENGTH_SHORT).show();
-//                holder.btnFavorited.setImageResource(R.drawable.ic_vector_heart_stroke);
-//                TwitterApplication.getRestClient().postFavorite(false, new JsonHttpResponseHandler());
-//                tweet.favorited = false;
-//            } else {
-//                Toast.makeText(context, "Favorite!", Toast.LENGTH_SHORT).show();
-//                holder.btnFavorited.setImageResource(R.drawable.ic_vector_heart);
-//                TwitterApplication.getRestClient().postFavorite(true, new JsonHttpResponseHandler());
-//                tweet.favorited = true;
-//            }
+        Glide.with(context)
+                .load(tweet.media_url_https)
+                .bitmapTransform(new RoundedCornersTransformation(context, 20, 0))
+                .into(holder.ivMedia);
+
+//        if (tweet.media_url_https != "" && tweet.type.equals("photo")) {
+//            Glide.with(context)
+//                    .load(tweet.media_url_https)
+//                    .bitmapTransform(new RoundedCornersTransformation(context, 20, 0))
+//                    .into(holder.ivMedia);
+//        } else {
+//            Toast.makeText(context, "Not a photo!", Toast.LENGTH_SHORT);
+//            holder.ivMedia.setImageResource(android.R.color.transparent);
 //        }
 
     }
@@ -122,6 +123,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvReplies;
         public TextView tvRetweets;
         public TextView tvLikes;
+        public ImageView ivMedia;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -136,6 +138,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvReplies = (TextView) itemView.findViewById(R.id.tvReplies);
             tvRetweets = (TextView) itemView.findViewById(R.id.tvRetweets);
             tvLikes = (TextView) itemView.findViewById(R.id.tvLikes);
+            ivMedia = (ImageView) itemView.findViewById(R.id.ivMedia);
 
             itemView.setOnClickListener(this);
 

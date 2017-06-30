@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -35,7 +36,9 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvLikes;
     ImageButton btnFavorited;
     ImageButton btnRetweeted;
-    TextView ivMedia;
+    ImageView ivMedia;
+
+    static final int EDIT_REQUEST_CODE = 20;
 
     // declare client
     TwitterClient client;
@@ -56,7 +59,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvLikes = (TextView) findViewById(R.id.tvLikes);
         btnFavorited = (ImageButton) findViewById(R.id.btnFavorited);
         btnRetweeted = (ImageButton) findViewById(R.id.btnRetweeted);
-//        ivMedia = (ImageView) findViewById(R.id.ivMedia);
+        ivMedia = (ImageView) findViewById(R.id.ivMedia);
 
         // initialize the client?
 
@@ -86,27 +89,22 @@ public class TweetDetailsActivity extends AppCompatActivity {
                 .bitmapTransform(new RoundedCornersTransformation(this, 25, 0))
                 .into(ivProfileImage);
 
-//        // check about media
-//        String mediaImageUrl = null;
-//            if (tweet.entities.media != null) {
-//                String type = tweet.entities.media.get(0).type;
-//                if (type.equals("photo")) {
-//                    mediaImageUrl = tweet.entities.media.get(0).mediaUrl;
-//                } else {
-//                    mediaImageUrl = "'";
-//                }
-//                    System.out.println("mediaImageUrl" + mediaImageUrl);
+//        if (tweet.media_url_https != null) {
+//            if (tweet.type.equals("photo")) {
+//                Glide.with(this)
+//                        .load(tweet.media_url_https)
+//                        .bitmapTransform(new RoundedCornersTransformation(this, 20, 0))
+//                        .into(ivMedia);
+//            } else {
+//                Toast.makeText(this, "Not a photo!", Toast.LENGTH_SHORT);
+//                ivMedia.setImageResource(android.R.color.transparent);
 //            }
+//        }
+        Glide.with(this)
+                .load(tweet.media_url_https)
+                .bitmapTransform(new RoundedCornersTransformation(this, 20, 0))
+                .into(ivMedia);
 
-//        Glide.with(this)
-//                .load(mediaImageUrl)
-//                .into(ivMedia);
-
-
-//        Glide.with(this)
-////        ivMedia = tweet.entities.media
-//
-//        Toast.makeText(this, )
         btnFavorited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,17 +205,19 @@ public class TweetDetailsActivity extends AppCompatActivity {
             }
 
         });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(TweetDetailsActivity.this, ComposeActivity.class);
+                startActivityForResult(i, EDIT_REQUEST_CODE);
+            }
+        });
     }
 }
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
 
 
 
