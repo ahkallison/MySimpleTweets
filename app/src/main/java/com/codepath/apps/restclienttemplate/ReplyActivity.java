@@ -45,7 +45,7 @@ public class ReplyActivity extends AppCompatActivity {
         // unwrap the movie passed in via intent, using its simple name as a key
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
 
-        tvReplyingTo.setText("Replying to " + tweet.user.screenName);
+        tvReplyingTo.setText("Replying to @" + tweet.user.screenName);
 
 
     }

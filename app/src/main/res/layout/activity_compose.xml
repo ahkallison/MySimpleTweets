@@ -60,7 +60,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginRight="35dp"
-                android:background="@android:drawable/ic_menu_help"
+                android:background="@drawable/temp_q"
                 android:tint="@color/twitter_blue"/>
 
             <ImageButton
@@ -98,7 +98,6 @@
             android:layout_below="@+id/etTweet"
             android:layout_alignParentEnd="true"
             android:state_pressed="true"/>
-
     </LinearLayout>
 
 </RelativeLayout>
