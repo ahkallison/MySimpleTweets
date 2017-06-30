@@ -36,6 +36,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvLikes;
     ImageButton btnFavorited;
     ImageButton btnRetweeted;
+    ImageButton btnReply;
     ImageView ivMedia;
 
     static final int EDIT_REQUEST_CODE = 20;
@@ -59,6 +60,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvLikes = (TextView) findViewById(R.id.tvLikes);
         btnFavorited = (ImageButton) findViewById(R.id.btnFavorited);
         btnRetweeted = (ImageButton) findViewById(R.id.btnRetweeted);
+        btnReply = (ImageButton) findViewById(R.id.btnReply);
         ivMedia = (ImageView) findViewById(R.id.ivMedia);
 
         // initialize the client?
@@ -75,8 +77,10 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvRetweets.setText(String.valueOf(tweet.retweetCount) + " Retweets");
         if (tweet.favorited) {
             btnFavorited.setImageResource(R.drawable.ic_vector_heart);
+//            btnFavorited.setColorFilter(R.color.inline_action_like);
         } else {
             btnFavorited.setImageResource(R.drawable.ic_vector_heart_stroke);
+//            btnFavorited.setColorFilter(R.color.inline_action);
         }
         if (tweet.retweeted) {
             btnRetweeted.setImageResource(R.drawable.ic_vector_retweet);
@@ -204,6 +208,15 @@ public class TweetDetailsActivity extends AppCompatActivity {
                 intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
             }
 
+        });
+
+        btnReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TweetDetailsActivity.this, ReplyActivity.class);
+                i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                startActivityForResult(i, EDIT_REQUEST_CODE);
+            }
         });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

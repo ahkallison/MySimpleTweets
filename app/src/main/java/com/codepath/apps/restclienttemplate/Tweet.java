@@ -1,6 +1,5 @@
 package com.codepath.apps.restclienttemplate;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
@@ -23,6 +22,7 @@ public class Tweet {
     public Boolean retweeted;
     public String media_url_https;
     public String type;
+    public long replyId;
 
     // deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -45,16 +45,22 @@ public class Tweet {
         }
         tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.retweeted = jsonObject.getBoolean("retweeted");
-        JSONArray mediaArray = jsonObject.getJSONObject("entities").getJSONArray("media");
-        try {
-            tweet.media_url_https = mediaArray.getJSONObject(0).getString("media_url_https");
-        } catch (JSONException e) {
-            tweet.media_url_https = "";
+
+        JSONObject entitiesObject = jsonObject.getJSONObject("entities");
+        if(entitiesObject.has("media")) {
+            tweet.media_url_https = entitiesObject.getJSONArray("media").getJSONObject(0).getString("media_url_https");
         }
+
+//        try {
+//            tweet.type = mediaArray.getJSONObject(0).getString("type");
+//        } catch (JSONException e) {
+//            tweet.type = "";
+//        }
+
         try {
-            tweet.type = mediaArray.getJSONObject(0).getString("type");
+            tweet.replyId = jsonObject.getLong("in_reply_to_status_id");
         } catch (JSONException e) {
-            tweet.type = "";
+            tweet.replyId = 0;
         }
 
 

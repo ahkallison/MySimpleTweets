@@ -6,9 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -19,35 +16,42 @@ import org.parceler.Parcels;
 
 import cz.msebera.android.httpclient.Header;
 
-public class ComposeActivity extends AppCompatActivity {
+public class ReplyActivity extends AppCompatActivity {
 
-    EditText etTweet;
-    ImageView ivProfile;
+    TextView tvReplyingTo;
+    EditText etReply;
+    TextView tvCount;
     Tweet tweet;
-    private TextView tvCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compose);
-        etTweet = (EditText) findViewById(R.id.etTweet);
-        tvCount = (TextView) findViewById(R.id.tvCount);
-        ivProfile = (ImageView) findViewById(R.id.ivProfile);
+        setContentView(R.layout.activity_reply);
 
-        final TextWatcher txwatcher = new TextWatcher() {
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tvCount.setText(String.valueOf(140 - s.length()));
-            }
-            public void afterTextChanged(Editable s) {
-            }
-        };
-        etTweet.addTextChangedListener(txwatcher);
+        tvReplyingTo = (TextView) findViewById(R.id.tvReplyingTo);
+        etReply = (EditText) findViewById(R.id.etReply);
+
+//        final TextWatcher txwatcher = new TextWatcher() {
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                tvCount.setText(String.valueOf(140 - s.length()));
+//            }
+//            public void afterTextChanged(Editable s) {
+//            }
+//        };
+//        etReply.addTextChangedListener(txwatcher);
+
+        // unwrap the movie passed in via intent, using its simple name as a key
+        tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+
+        tvReplyingTo.setText("Replying to " + tweet.user.screenName);
+
+
     }
 
     public void onSubmit(View view) {
-        TwitterApplication.getRestClient().sendTweet(etTweet.getText().toString(), new JsonHttpResponseHandler() {
+        TwitterApplication.getRestClient().replyTweet(etReply.getText().toString(), tweet.uid, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -59,16 +63,14 @@ public class ComposeActivity extends AppCompatActivity {
                     data.putExtra("tweet", Parcels.wrap(tweet));
                     data.putExtra("code", 200);
                     setResult(RESULT_OK, data);
-                    Intent i = new Intent(ComposeActivity.this, TimelineActivity.class);
-                    startActivity(i);
                     finish();
 
                 } catch (JSONException e) {
                     // log the error
-                    e.printStackTrace();
-                    Log.e("ComposeActivity", "Error submitting composed tweet");
+                    Log.e("ReplyActivity", "Error submitting reply tweet");
                 }
             }
         });
     }
+
 }

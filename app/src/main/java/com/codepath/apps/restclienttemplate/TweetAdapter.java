@@ -197,6 +197,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                     Intent intent = new Intent(context, TweetDetailsActivity.class);
                     // serialize the movie using parceler, use its short name as a key
                     intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                    // TODO
+//                    ((AppCompatActivity)context).startActivityForResult(intent, REQUEST_CODE_REPLY);
                 }
                 }
             });

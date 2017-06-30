@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codepath.apps.restclienttemplate.ReplyActivity">
+
+
+
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@android:color/black"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tvReplyingTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@+id/ivProfile"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <EditText
+        android:id="@+id/etReply"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvReplyingTo"
+        android:backgroundTint="@android:color/transparent"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="textMultiLine"
+        android:maxLength="140"
+        android:hint="Tweet your reply"></EditText>
+
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etTweet"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/etTweet">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btnPhoto"
+                android:background="@drawable/ic_vector_photo_stroke"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:tint="@color/twitter_blue"/>
+
+            <ImageButton
+                android:id="@+id/btnGif"
+                android:background="@drawable/ic_vector_gif_pill_stroke"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:tint="@color/twitter_blue"/>
+
+            <ImageButton
+                android:id="@+id/btnQuestion"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:background="@android:drawable/ic_menu_help"
+                android:tint="@color/twitter_blue"/>
+
+            <ImageButton
+                android:id="@+id/btnLocation"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/ic_vector_location_stroke"
+                android:tint="@color/twitter_blue"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="140"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:layout_alignBaseline="@+id/post_btn"
+            android:layout_alignBottom="@+id/post_btn" />
+
+        <Button
+            android:id="@+id/post_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/shape"
+            android:onClick="onSubmit"
+            android:text="Reply"
+            android:minHeight="30dp"
+            android:minWidth="100dp"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/etTweet"
+            android:layout_alignParentEnd="true"
+            android:state_pressed="true"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

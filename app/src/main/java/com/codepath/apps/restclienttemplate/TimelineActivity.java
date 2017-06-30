@@ -223,7 +223,6 @@ public class TimelineActivity extends AppCompatActivity {
     }
     // launch subactivity
     public void composeMessage() {
-//        Toast.makeText(this, "COMPOSE!!!", Toast.LENGTH_LONG).show();
         // create the new activity
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
         startActivityForResult(i, EDIT_REQUEST_CODE);
