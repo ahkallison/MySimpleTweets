@@ -121,6 +121,14 @@ public class TimelineActivity extends AppCompatActivity {
         populateTimeline();
     }
 
+
+    // TODO fix this
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateTimeline();
+    }
+
     public void fetchTimelineAsync(int page) {
         // Send the network request to fetch the updated data
         // `client` here is an instance of Android Async HTTP
@@ -129,6 +137,7 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(0, new JsonHttpResponseHandler() {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 // Remember to CLEAR OUT old items before appending in the new ones
+                // TODO fix this
                 tweetAdapter.clear();
                 for (int i = 0; i < response.length(); i++) {
                     // convert each object to a TWeet model
@@ -167,6 +176,7 @@ public class TimelineActivity extends AppCompatActivity {
                 // iterate through the JSON array
                 // for each entry, deserialize the JSON object
 
+                //tweetAdapter.clear();
                 for (int i = 0; i < response.length(); i++) {
                     // convert each object to a TWeet model
                     // add that Tweet model to our data source

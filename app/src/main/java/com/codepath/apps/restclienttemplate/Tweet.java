@@ -43,7 +43,11 @@ public class Tweet {
         }
         tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.retweeted = jsonObject.getBoolean("retweeted");
-//        tweet.entities = jsonObject.getJSONObject("entities");
+//        try {
+//            tweet.entities = jsonObject.getJSONObject("entities");
+//        } catch (JSONException e) {
+//            tweet.entities = null;
+//        }
         return tweet;
     }
 //

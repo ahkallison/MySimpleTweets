@@ -97,7 +97,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
 //                }
 //                    System.out.println("mediaImageUrl" + mediaImageUrl);
 //            }
-//
+
 //        Glide.with(this)
 //                .load(mediaImageUrl)
 //                .into(ivMedia);
