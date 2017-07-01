@@ -45,7 +45,7 @@
         android:tint="@android:color/white"
         app:backgroundTint="@color/twitter_blue"
         app:rippleColor="@android:color/transparent"
-        app:srcCompat="@drawable/ic_vector_compose" />\
+        app:srcCompat="@drawable/ic_vector_compose" />
 
 </android.support.design.widget.CoordinatorLayout>
 

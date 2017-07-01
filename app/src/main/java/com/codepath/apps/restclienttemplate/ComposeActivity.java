@@ -3,11 +3,11 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +44,11 @@ public class ComposeActivity extends AppCompatActivity {
             }
         };
         etTweet.addTextChangedListener(txwatcher);
+
+//        Glide.with(this)
+//                .load(tweet.user.profileImageUrl)
+//                .bitmapTransform(new RoundedCornersTransformation(this, 25, 0))
+//                .into(ivProfile);
     }
 
     public void onSubmit(View view) {

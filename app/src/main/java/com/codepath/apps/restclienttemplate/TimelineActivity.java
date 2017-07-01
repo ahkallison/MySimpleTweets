@@ -34,6 +34,7 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTweets;
     // a numeric code to identify the edit activity
     static final int EDIT_REQUEST_CODE = 20;
+    static final int REQUEST_CODE_REPLY = 30;
     private SwipeRefreshLayout swipeContainer;
     MenuItem miActionProgressitem;
 
@@ -133,12 +134,12 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
-    // TODO fix this
-    @Override
-    protected void onResume() {
-        super.onResume();
-        populateTimeline();
-    }
+//    // TODO fix this
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        populateTimeline();
+//    }
 
     public void fetchTimelineAsync(int page) {
         // Send the network request to fetch the updated data
@@ -240,11 +241,23 @@ public class TimelineActivity extends AppCompatActivity {
             int code = data.getExtras().getInt("code", 0);
             // insert new tweet into arraylist
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+            int position = getIntent().getIntExtra("POSITION", 0);
+            tweets.set(position, tweet);
+            tweetAdapter.notifyItemChanged(position);
+            rvTweets.scrollToPosition(position);
+            // Toast the tweet to display temporarily on screen
+//            Toast.makeText(this, sTweet, Toast.LENGTH_SHORT).show();
+        } else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_REPLY) {
+            // extract name value from result extras
+            String sTweet = data.getExtras().getString("tweet");
+            int code = data.getExtras().getInt("code", 0);
+            // insert new tweet into arraylist
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             tweets.add(0, tweet);
             tweetAdapter.notifyItemInserted(0);
             rvTweets.scrollToPosition(0);
             // Toast the tweet to display temporarily on screen
-            Toast.makeText(this, sTweet, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, sTweet, Toast.LENGTH_SHORT).show();
         }
     }
 }

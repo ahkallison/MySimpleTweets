@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,6 +31,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     // a numeric code to identify the edit activity
     static final int EDIT_REQUEST_CODE = 20;
+    static final int REQUEST_CODE_REPLY = 30;
 
 
     // TODO make this public??
@@ -92,17 +92,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 .load(tweet.media_url_https)
                 .bitmapTransform(new RoundedCornersTransformation(context, 20, 0))
                 .into(holder.ivMedia);
-
-//        if (tweet.media_url_https != "" && tweet.type.equals("photo")) {
-//            Glide.with(context)
-//                    .load(tweet.media_url_https)
-//                    .bitmapTransform(new RoundedCornersTransformation(context, 20, 0))
-//                    .into(holder.ivMedia);
-//        } else {
-//            Toast.makeText(context, "Not a photo!", Toast.LENGTH_SHORT);
-//            holder.ivMedia.setImageResource(android.R.color.transparent);
-//        }
-
     }
 
     @Override
@@ -120,6 +109,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvScreenName;
         public ImageButton btnFavorited;
         public ImageButton btnRetweeted;
+        public ImageButton btnReply;
         public TextView tvReplies;
         public TextView tvRetweets;
         public TextView tvLikes;
@@ -135,6 +125,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
             btnFavorited = (ImageButton) itemView.findViewById(R.id.btnFavorited);
             btnRetweeted = (ImageButton) itemView.findViewById(R.id.btnRetweeted);
+            btnReply = (ImageButton) itemView.findViewById(R.id.btnReply);
             tvReplies = (TextView) itemView.findViewById(R.id.tvReplies);
             tvRetweets = (TextView) itemView.findViewById(R.id.tvRetweets);
             tvLikes = (TextView) itemView.findViewById(R.id.tvLikes);
@@ -156,7 +147,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
                     // deal with favorites
                     if(tweet.favorited) {
-                        Toast.makeText(context, "Unfavorite!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Unfavorite!", Toast.LENGTH_SHORT).show();
                         tweet.favorited = false;
                         btnFavorited.setImageResource(R.drawable.ic_vector_heart_stroke);
                         TwitterApplication.getRestClient().postFavorite(false, tweet.uid, new JsonHttpResponseHandler() {
@@ -173,8 +164,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                                 tvLikes.setText(String.valueOf(tweet.favoriteCount));
                             }
                         });
-                    } else {
-                        Toast.makeText(context, "Favorite!", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(context, "Favorite!", Toast.LENGTH_SHORT).show();
                         tweet.favorited = true;
                         btnFavorited.setImageResource(R.drawable.ic_vector_heart);
                         TwitterApplication.getRestClient().postFavorite(true, tweet.uid, new JsonHttpResponseHandler() {
@@ -197,8 +188,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                     Intent intent = new Intent(context, TweetDetailsActivity.class);
                     // serialize the movie using parceler, use its short name as a key
                     intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                    intent.putExtra("POSITION", position);
                     // TODO
-//                    ((AppCompatActivity)context).startActivityForResult(intent, REQUEST_CODE_REPLY);
+//                    ((AppCompatActivity)context).startActivityForResult(intent, EDIT_REQUEST_CODE);
                 }
                 }
             });
@@ -229,12 +221,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                                         Log.e("TAG", "tweet not taken from json correctly");
                                     }
                                     tvRetweets.setText(String.valueOf(tweet.retweetCount - 1));
-
-                                    // create intent for the new activity
-                                    Intent intent = new Intent(context, TweetDetailsActivity.class);
-                                    // serialize the movie using parceler, use its short name as a key
-                                    intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-
                                 }
                             });
                         } else {
@@ -252,18 +238,30 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                                         Log.e("TAG", "tweet not taken from json correctly");
                                     }
                                     tvRetweets.setText(String.valueOf(tweet.retweetCount));
-
                                 }
                             });
                         }
 
-//                        // create intent for the new activity
-//                        Intent intent = new Intent(context, TweetDetailsActivity.class);
-//                        // serialize the movie using parceler, use its short name as a key
-//                        intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                        // create intent for the new activity
+                        Intent intent = new Intent(context, TweetDetailsActivity.class);
+                        // serialize the movie using parceler, use its short name as a key
+                        intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                        intent.putExtra("POSITION", position);
+                        // TODO
+//                        ((AppCompatActivity)context).startActivityForResult(intent, EDIT_REQUEST_CODE);
+
                     }
                 }
             });
+
+//            btnReply.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent i = new Intent(context, ReplyActivity.class);
+//                    i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+//                    startActivityForResult(i, EDIT_REQUEST_CODE);
+//                }
+//            });
         }
 
 

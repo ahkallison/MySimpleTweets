@@ -143,16 +143,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_vector_heart_stroke"
         android:layout_marginRight="70dp"
-        android:layout_toRightOf="@+id/btnRetweeted"
-        android:tint="@color/btn_disabled"/>
+        android:layout_toRightOf="@+id/btnRetweeted"/>
 
     <ImageButton
         android:id="@+id/btnDM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/btnFavorited"
-        android:background="@drawable/ic_vector_messages_stroke"
-        android:tint="@color/btn_disabled"/>
+        android:background="@drawable/ic_vector_messages_stroke" />
 </LinearLayout>
 
     <View

@@ -39,6 +39,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
     ImageButton btnReply;
     ImageView ivMedia;
 
+    Integer position;
+
     static final int EDIT_REQUEST_CODE = 20;
 
     // declare client
@@ -93,21 +95,11 @@ public class TweetDetailsActivity extends AppCompatActivity {
                 .bitmapTransform(new RoundedCornersTransformation(this, 25, 0))
                 .into(ivProfileImage);
 
-//        if (tweet.media_url_https != null) {
-//            if (tweet.type.equals("photo")) {
-//                Glide.with(this)
-//                        .load(tweet.media_url_https)
-//                        .bitmapTransform(new RoundedCornersTransformation(this, 20, 0))
-//                        .into(ivMedia);
-//            } else {
-//                Toast.makeText(this, "Not a photo!", Toast.LENGTH_SHORT);
-//                ivMedia.setImageResource(android.R.color.transparent);
-//            }
-//        }
         Glide.with(this)
                 .load(tweet.media_url_https)
                 .bitmapTransform(new RoundedCornersTransformation(this, 20, 0))
                 .into(ivMedia);
+
 
         btnFavorited.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +149,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), TweetDetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-
+//                // TODO
+//                ((AppCompatActivity)).startActivityForResult(intent, EDIT_REQUEST_CODE);
             }
         });
 
@@ -206,6 +199,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), TweetDetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+//                // TODO
+//                ((AppCompatActivity)getApplicationContext()).startActivityForResult(intent, EDIT_REQUEST_CODE);
             }
 
         });
@@ -227,6 +222,21 @@ public class TweetDetailsActivity extends AppCompatActivity {
                 startActivityForResult(i, EDIT_REQUEST_CODE);
             }
         });
+    }
+
+    // TODO override backbutton
+    @Override
+    public void onBackPressed() {
+        Log.d("OBP", "onBackPressed called");
+        // create intent for the new activity
+        Intent intent = new Intent(getApplicationContext(), TweetDetailsActivity.class);
+        // serialize the movie using parceler, use its short name as a key
+        intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+        intent.putExtra("POSITION", position);
+        setResult(RESULT_OK, intent);
+//        // TODO
+//        ((AppCompatActivity)getApplicationContext()).startActivityForResult(intent, EDIT_REQUEST_CODE);
+        finish();
     }
 }
 
