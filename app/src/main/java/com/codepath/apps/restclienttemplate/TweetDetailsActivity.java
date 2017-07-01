@@ -38,6 +38,19 @@ public class TweetDetailsActivity extends AppCompatActivity {
     ImageButton btnReply;
     ImageView ivMedia;
 
+    // resolve the view objects
+//    @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+//    @BindView(R.id.tvUserName) TextView tvUserName;
+//    @BindView(R.id.tvBody) TextView tvBody;
+//    @BindView(R.id.tvTimeStamp) TextView tvTimeStamp;
+//    @BindView(R.id.tvScreenName) TextView tvScreenName;
+//    @BindView(R.id.tvRetweets) TextView tvRetweets;
+//    @BindView(R.id.tvLikes) TextView tvLikes;
+//    @BindView(R.id.btnFavorited) ImageButton btnFavorited;
+//    @BindView(R.id.btnRetweeted) ImageButton btnRetweeted;
+//    @BindView(R.id.btnReply) ImageButton btnReply;
+//    @BindView(R.id.ivMedia) ImageView ivMedia;
+
     Integer position;
 
     static final int EDIT_REQUEST_CODE = 20;
@@ -78,10 +91,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvRetweets.setText(String.valueOf(tweet.retweetCount) + " Retweets");
         if (tweet.favorited) {
             btnFavorited.setImageResource(R.drawable.ic_vector_heart);
-//            btnFavorited.setColorFilter(R.color.inline_action_like);
         } else {
             btnFavorited.setImageResource(R.drawable.ic_vector_heart_stroke);
-//            btnFavorited.setColorFilter(R.color.inline_action);
         }
         if (tweet.retweeted) {
             btnRetweeted.setImageResource(R.drawable.ic_vector_retweet);

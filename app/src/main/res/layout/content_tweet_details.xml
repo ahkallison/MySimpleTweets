@@ -54,6 +54,8 @@
         android:layout_marginRight="20dp"
         android:text="TextView"
         android:textColor="@android:color/black"
+        android:autoLink="all"
+        android:linksClickable="true"
         android:textSize="20dp" />
 
     <ImageView

@@ -164,7 +164,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                                 tvLikes.setText(String.valueOf(tweet.favoriteCount));
                             }
                         });
-//                    } else {
+                    } else {
 //                        Toast.makeText(context, "Favorite!", Toast.LENGTH_SHORT).show();
                         tweet.favorited = true;
                         btnFavorited.setImageResource(R.drawable.ic_vector_heart);

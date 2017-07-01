@@ -17,22 +17,34 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class ComposeActivity extends AppCompatActivity {
 
-    EditText etTweet;
-    ImageView ivProfile;
+//    EditText etTweet;
+//    ImageView ivProfile;
+//    private TextView tvCount;
+
     Tweet tweet;
-    private TextView tvCount;
+
+
+    // resolve the view objects
+    @BindView(R.id.etTweet) EditText etTweet;
+    @BindView(R.id.tvCount) TextView tvCount;
+    @BindView(R.id.ivProfile) ImageView ivProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
-        etTweet = (EditText) findViewById(R.id.etTweet);
-        tvCount = (TextView) findViewById(R.id.tvCount);
-        ivProfile = (ImageView) findViewById(R.id.ivProfile);
+//        etTweet = (EditText) findViewById(R.id.etTweet);
+//        tvCount = (TextView) findViewById(R.id.tvCount);
+//        ivProfile = (ImageView) findViewById(R.id.ivProfile);
+
+        // applying ButterKnife
+        ButterKnife.bind(this);
 
         final TextWatcher txwatcher = new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -14,22 +14,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class ReplyActivity extends AppCompatActivity {
 
-    TextView tvReplyingTo;
-    EditText etReply;
+//    TextView tvReplyingTo;
+//    EditText etReply;
     TextView tvCount;
     Tweet tweet;
+
+    // resolve the view objects
+    @BindView(R.id.tvReplyingTo) TextView tvReplyingTo;
+    @BindView(R.id.etReply) EditText etReply;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reply);
 
-        tvReplyingTo = (TextView) findViewById(R.id.tvReplyingTo);
-        etReply = (EditText) findViewById(R.id.etReply);
+        // applying Butterknife
+        ButterKnife.bind(this);
+
+//        tvReplyingTo = (TextView) findViewById(R.id.tvReplyingTo);
+//        etReply = (EditText) findViewById(R.id.etReply);
 
 //        final TextWatcher txwatcher = new TextWatcher() {
 //            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -46,7 +55,7 @@ public class ReplyActivity extends AppCompatActivity {
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
 
         tvReplyingTo.setText("Replying to @" + tweet.user.screenName);
-
+        etReply.setText("@" + tweet.user.screenName);
 
     }
 
