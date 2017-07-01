@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -106,7 +105,6 @@ public class TweetDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // deal with favorites
                 if(tweet.favorited) {
-                    Toast.makeText(getApplicationContext(), "Unfavorite!", Toast.LENGTH_SHORT).show();
                     tweet.favorited = false;
                     btnFavorited.setImageResource(R.drawable.ic_vector_heart_stroke);
                     TwitterApplication.getRestClient().postFavorite(false, tweet.uid, new JsonHttpResponseHandler() {
@@ -125,7 +123,6 @@ public class TweetDetailsActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), "Favorite!", Toast.LENGTH_SHORT).show();
                     tweet.favorited = true;
                     btnFavorited.setImageResource(R.drawable.ic_vector_heart);
                     TwitterApplication.getRestClient().postFavorite(true, tweet.uid, new JsonHttpResponseHandler() {
