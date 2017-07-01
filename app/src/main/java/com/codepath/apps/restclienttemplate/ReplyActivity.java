@@ -3,6 +3,8 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -40,15 +42,16 @@ public class ReplyActivity extends AppCompatActivity {
 //        tvReplyingTo = (TextView) findViewById(R.id.tvReplyingTo);
 //        etReply = (EditText) findViewById(R.id.etReply);
 
-//        final TextWatcher txwatcher = new TextWatcher() {
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            }
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        final TextWatcher txwatcher = new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 //                tvCount.setText(String.valueOf(140 - s.length()));
-//            }
-//            public void afterTextChanged(Editable s) {
-//            }
-//        };
+                tvCount.setText("");
+            }
+            public void afterTextChanged(Editable s) {
+            }
+        };
 //        etReply.addTextChangedListener(txwatcher);
 
         // unwrap the movie passed in via intent, using its simple name as a key
