@@ -2,18 +2,21 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsPagerAdapter;
 
 import org.parceler.Parcels;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener {
 
 //    TwitterClient client;
 
@@ -43,15 +46,14 @@ public class TimelineActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
 
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-//                startActivityForResult(i, EDIT_REQUEST_CODE);
-//            }
-//        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+                startActivityForResult(i, EDIT_REQUEST_CODE);
+            }
+        });
 
 //        // lookup the swipe container view
 //        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -155,7 +157,12 @@ public class TimelineActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-//    @Override
+    @Override
+    public void onTweetSelected(Tweet tweet) {
+        Toast.makeText(this, tweet.body, Toast.LENGTH_SHORT).show();
+    }
+
+    //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        // handle presses on the action bar items
 //        switch (item.getItemId()) {
@@ -239,9 +246,9 @@ public class TimelineActivity extends AppCompatActivity {
         startActivityForResult(i, EDIT_REQUEST_CODE);
     }
 
-    public void showProfileView() {
-        Toast.makeText(this, "PROFILE!!!", Toast.LENGTH_SHORT).show();
-    }
+//    public void showProfileView() {
+//        Toast.makeText(this, "PROFILE!!!", Toast.LENGTH_SHORT).show();
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

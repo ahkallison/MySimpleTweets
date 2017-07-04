@@ -29,23 +29,36 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
-    // a numeric code to identify the edit activity
-    static final int EDIT_REQUEST_CODE = 20;
-    static final int REQUEST_CODE_REPLY = 30;
+//    // a numeric code to identify the edit activity
+//    static final int EDIT_REQUEST_CODE = 20;
+//    static final int REQUEST_CODE_REPLY = 30;
 
+
+    public interface TweetSelectedListener {
+        // handle tweet selection
+        public void onTweetSelected(Tweet tweet);
+    }
 
     // TODO make this public??
     private List<Tweet> mTweets;
     Context context;
+    private TweetAdapterListener mListener;
+
+    // define an interface required by the ViewHolder
+    public interface TweetAdapterListener {
+        public void onItemSelected(View view, int position);
+    }
+
     // pass in the Tweets array in the constructor
-    public TweetAdapter(List<Tweet> tweets) {
+    public TweetAdapter(List<Tweet> tweets, TweetAdapterListener listener) {
         mTweets = tweets;
+        this.mListener = listener;
     }
 
     // for each row, inflate the layout and cache references into ViewHolder
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TweetAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -130,6 +143,21 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvRetweets = (TextView) itemView.findViewById(R.id.tvRetweets);
             tvLikes = (TextView) itemView.findViewById(R.id.tvLikes);
             ivMedia = (ImageView) itemView.findViewById(R.id.ivMedia);
+
+            // handle row click event
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null) {
+                        // get the position of the row element
+                        int position = getAdapterPosition();
+
+                        // fire the listener callback
+                        mListener.onItemSelected(view, position);
+                    }
+                }
+            });
+
 
             itemView.setOnClickListener(this);
 
@@ -284,6 +312,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             }
         }
     }
+
+
 
     // clean all elements of the recycler
     public void clear() {
