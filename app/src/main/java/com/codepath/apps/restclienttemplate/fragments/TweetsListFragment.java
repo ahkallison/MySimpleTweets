@@ -3,9 +3,11 @@ package com.codepath.apps.restclienttemplate.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,10 +31,11 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
         public void onTweetSelected(Tweet tweet);
     }
 
-
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+    SwipeRefreshLayout swipeContainer;
+    MenuItem miActionProgressitem;
 
     // inflation happens inside onCreateView
 
@@ -53,8 +56,31 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
         // set the adapter
         rvTweets.setAdapter(tweetAdapter);
 
-        return v;
+        // lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        // set up refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+//                showProgressBar();
+                fetchTimelineAsync(0);
+            }
+
+
+            // configure the refreshing colors
+//        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+//                android.R.color.holo_green_light,
+//                android.R.color.holo_orange_light,
+//                android.R.color.holo_red_light)
+
+//        });
+    });
+    return v;
     }
+
 
     public void addItems(JSONArray response) {
         try {
@@ -67,6 +93,61 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
             e.printStackTrace();
         }
     }
+
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        // store instance of the menu item containing progress
+//        miActionProgressitem = menu.findItem(R.id.miActionProgress);
+//        // extract the action-view from the menu item
+//        ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgressitem);
+//        // return to finish
+//        return super.onPrepareOptionsMenu(menu);
+//    }
+//
+//    public void showProgressBar() {
+//        // Show progress item
+//        miActionProgressitem.setVisible(true);
+//    }
+//
+//    public void hideProgressBar() {
+//        // Hide progress item
+//        miActionProgressitem.setVisible(false);
+//    }
+
+    public void fetchTimelineAsync(int page) {
+    }
+
+//        public void fetchTimelineAsync(int page) {
+//        // Send the network request to fetch the updated data
+//        // `client` here is an instance of Android Async HTTP
+//        // getHomeTimeline is an example endpoint.
+//
+//            client.getHomeTimeline(0, new JsonHttpResponseHandler() {
+//                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+//                    // Remember to CLEAR OUT old items before appending in the new ones
+//                    // TODO fix this
+//    //                tweetAdapter.clear();
+//    //                try {
+//    //                    for (int i = 0; i < response.length(); i++) {
+//    //                        Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
+//    //                        tweets.add(tweet);
+//    //                        tweetAdapter. notifyItemInserted(tweets.size() - 1);
+//    //                    }
+//    //                } catch (JSONException e) {
+//    //                    e.printStackTrace();
+//    //                }
+//
+//    //                // ...the data has come back, add new items to your adapter...
+//    //                tweetAdapter.addAll(tweets);
+//    //                // Now we call setRefreshing(false) to signal refresh has finished
+//    //                swipeContainer.setRefreshing(false);
+//    //                hideProgressBar();
+//                }
+//                    public void onFailure(Throwable e) {
+//                        Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+//                    }
+//            });
+//        }
 
     @Override
     public void onItemSelected(View view, int position) {

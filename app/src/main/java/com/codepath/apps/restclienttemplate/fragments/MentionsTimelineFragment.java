@@ -59,4 +59,24 @@ public class MentionsTimelineFragment extends TweetsListFragment {
             }
         });
     }
+
+    public void fetchTimelineAsync(int page) {
+
+        // Send the network request to fetch the updated data
+        client.getMentionsTimeline(0, new JsonHttpResponseHandler() {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+
+                // Remember to CLEAR OUT old items before appending in the new ones
+                tweetAdapter.clear();
+                addItems(response);
+
+                // signal refresh has finished
+                swipeContainer.setRefreshing(false);
+                //                hideProgressBar();
+            }
+            public void onFailure(Throwable e) {
+                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+            }
+        });
+    }
 }

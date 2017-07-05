@@ -55,7 +55,8 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
             }
         });
 
-//        // lookup the swipe container view
+
+//        });//        // lookup the swipe container view
 //        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 //        // set up refresh listener which triggers new data loading
 //        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -67,7 +68,6 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
 //                showProgressBar();
 //                fetchTimelineAsync(0);
 //            }
-//        });
 //        // configure the refreshing colors
 //        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
 //                android.R.color.holo_green_light,
