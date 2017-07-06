@@ -162,6 +162,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
             }
         });
 
+
+
         btnRetweeted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,6 +246,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
 //        // TODO
 //        ((AppCompatActivity)getApplicationContext()).startActivityForResult(intent, EDIT_REQUEST_CODE);
+        // unwrap the movie passed in via intent, using its simple name as a key
+        tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         finish();
     }
 }

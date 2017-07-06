@@ -51,7 +51,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-                startActivityForResult(i, EDIT_REQUEST_CODE);
+                startActivityForResult(i, REQUEST_CODE_REPLY);
             }
         });
 
@@ -151,9 +151,9 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     }
 
     public void onProfileView(MenuItem item) {
-
         // launch the profile view
         Intent i = new Intent(this, ProfileActivity.class);
+//        i.putExtra("screen_name", user.screenName);
         startActivity(i);
     }
 

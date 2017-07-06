@@ -20,4 +20,11 @@
     <color name="inline_action_retweet">@color/medium_green</color>
     <color name="inline_action_retweet_pressed">@color/medium_gray_50</color>
     <color name="btn_disabled">#aaa</color>
+    <color name="colorLoginBlue">#5bc1e7</color>
+    <color name="colorStreamBlue">#159CEB</color>
+    <color name="colorTransparentBackground">#803f3f3f</color>
+    <color name="colorGreyBackground">#d3d3d3</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FFFFFF</color>
 </resources>

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 /**
  * Created by ahkallison on 7/3/17.
  */
 
 public class TweetsPagerAdapter extends FragmentPagerAdapter {
+    SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
 
     private String tabTitles[] = new String[] {"Home", "Mentions"};
     private Context context;
@@ -46,5 +48,6 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
         // generate title based on item position
         return tabTitles[position];
     }
+
 
 }

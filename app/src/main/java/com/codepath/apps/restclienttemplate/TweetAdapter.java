@@ -162,6 +162,30 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             itemView.setOnClickListener(this);
 
 
+            // on click listener for profile image
+            ivProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // gets item position
+                    final int position = getAdapterPosition();
+
+                    // make sure the position is valid
+                    if (position != RecyclerView.NO_POSITION) {
+                        Tweet tweet = mTweets.get(position);
+
+                        Intent i = new Intent(context, OtherProfileActivity.class);
+
+                        // serialize the movie using parceler, use its short name as a key
+                        i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                        i.putExtra("screen_name", tweet.user.screenName);
+
+                        context.startActivity(i);
+                    }
+                }
+            });
+
+
             btnFavorited.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -40,7 +40,8 @@
             android:label="@string/title_activity_tweet_details"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ReplyActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".OtherProfileActivity"></activity>
     </application>
 
 </manifest>

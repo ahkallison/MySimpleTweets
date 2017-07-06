@@ -76,8 +76,6 @@ public class ComposeActivity extends AppCompatActivity {
                     data.putExtra("tweet", Parcels.wrap(tweet));
                     data.putExtra("code", 200);
                     setResult(RESULT_OK, data);
-                    Intent i = new Intent(ComposeActivity.this, TimelineActivity.class);
-                    startActivity(i);
                     finish();
 
                 } catch (JSONException e) {

@@ -34,7 +34,16 @@ public class UserTimelineFragment extends TweetsListFragment {
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient();
         populateTimeline();
+
     }
+
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        client = TwitterApplication.getRestClient();
+//        populateTimeline();
+//        return super.onCreateView(inflater, container, savedInstanceState);
+//    }
 
     private void populateTimeline() {
         // comes from the activity

@@ -2,7 +2,9 @@ package com.codepath.apps.restclienttemplate;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,11 +15,18 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
 
 public class ProfileActivity extends AppCompatActivity {
 
     TwitterClient client;
+    Tweet tweet;
+    TweetAdapter tweetAdapter;
+    ArrayList<Tweet> tweets;
+    RecyclerView rvTweets;
+    SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,10 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         String screenName = getIntent().getStringExtra("screen_name");
+
+//        FragmentManager manager = getSupportFragmentManager();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        transaction.replace(R.id.flContainer, HomeTimelineFragment.newInstance(screenName)).commit();
 
         // create the user fragment
         UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName);
@@ -71,4 +84,6 @@ public class ProfileActivity extends AppCompatActivity {
         // load profile image with Glide
         Glide.with(this).load(user.profileImageUrl).into(ivProfileImage);
     }
+
+
 }

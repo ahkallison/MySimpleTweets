@@ -77,17 +77,16 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
 //                android.R.color.holo_red_light)
 
 //        });
-    });
-    return v;
+        });
+        return v;
     }
-
 
     public void addItems(JSONArray response) {
         try {
             for (int i = 0; i < response.length(); i++) {
                 Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
                 tweets.add(tweet);
-                tweetAdapter. notifyItemInserted(tweets.size() - 1);
+                tweetAdapter.notifyItemInserted(tweets.size() - 1);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -155,4 +154,17 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
         // Toast.makeText(getContext(), tweet.body, Toast.LENGTH_SHORT).show();
         ((TweetSelectedListener) getActivity()).onTweetSelected(tweet);
     }
+
+    public void composeReply(Tweet tweet) {
+        tweets.add(0, tweet);
+        tweetAdapter.notifyItemInserted(0);
+        rvTweets.scrollToPosition(0);
+    }
+
+    public void editTweet(Tweet tweet, int position) {
+        tweets.set(position, tweet);
+        tweetAdapter.notifyItemChanged(position);
+        rvTweets.scrollToPosition(position);
+    }
+
 }
