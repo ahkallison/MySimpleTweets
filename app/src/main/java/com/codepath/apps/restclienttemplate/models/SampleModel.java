@@ -25,7 +25,7 @@ public class SampleModel extends BaseModel {
 
 	@PrimaryKey
 	@Column
-	Long id;
+	long id;
 
 	// Define table fields
 	@Column

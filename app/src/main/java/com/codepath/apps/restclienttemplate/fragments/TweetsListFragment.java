@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codepath.apps.restclienttemplate.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.Tweet;
 import com.codepath.apps.restclienttemplate.TweetAdapter;
@@ -24,11 +25,14 @@ import java.util.ArrayList;
  * Created by ahkallison on 7/3/17.
  */
 
-public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAdapterListener {
+public abstract class TweetsListFragment extends Fragment implements TweetAdapter.TweetAdapterListener {
+
+    // TODO added
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public interface TweetSelectedListener {
         // handle tweet selection
-        public void onTweetSelected(Tweet tweet);
+        void onTweetSelected(Tweet tweet);
     }
 
     TweetAdapter tweetAdapter;
@@ -38,7 +42,6 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
     MenuItem miActionProgressitem;
 
     // inflation happens inside onCreateView
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,8 +54,12 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
         tweets = new ArrayList<>();
         // construct the adapter from this data source
         tweetAdapter = new TweetAdapter(tweets, this);
+
+        // TODO
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+
         // RecyclerView setup (layout manager, use adapter)
-        rvTweets.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvTweets.setLayoutManager(linearLayoutManager);
         // set the adapter
         rvTweets.setAdapter(tweetAdapter);
 
@@ -78,7 +85,31 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
 
 //        });
         });
+
+        // TODO
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                Tweet lastTweet = tweets.get(tweets.size() - 1);
+                getNextPage(lastTweet.uid - 1);
+            }
+        };
+
+        // TODO
+        // Adds the scroll listener to RecyclerView
+        rvTweets.addOnScrollListener(scrollListener);
+
         return v;
+    }
+
+    public void getNextPage(long id) {
+        // Send an API request to retrieve appropriate paginated data
+        //  --> Send the request including an offset value (i.e `page`) as a query parameter.
+        //  --> Deserialize and construct new model objects from the API response
+        //  --> Append the new data objects to the existing set of items inside the array of items
+        //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
     }
 
     public void addItems(JSONArray response) {

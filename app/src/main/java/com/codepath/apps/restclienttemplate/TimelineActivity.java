@@ -18,16 +18,9 @@ import org.parceler.Parcels;
 
 public class TimelineActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener {
 
-//    TwitterClient client;
-
-//    TweetAdapter tweetAdapter;
-//    ArrayList<Tweet> tweets;
-//    RecyclerView rvTweets;
-    // a numeric code to identify the edit activity
     static final int EDIT_REQUEST_CODE = 20;
     static final int REQUEST_CODE_REPLY = 30;
-//    private SwipeRefreshLayout swipeContainer;
-//    MenuItem miActionProgressitem;
+
 
 
     @Override
