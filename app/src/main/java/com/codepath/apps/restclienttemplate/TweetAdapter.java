@@ -95,7 +95,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvRetweets.setText(String.valueOf(tweet.retweetCount));
         holder.tvLikes.setText(String.valueOf(tweet.favoriteCount));
         // TODO TEMPORARY
-        holder.tvReplies.setText("0");
+        holder.tvReplies.setText("");
 
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)

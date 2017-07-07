@@ -15,6 +15,7 @@ import com.codepath.apps.restclienttemplate.fragments.UserTimelineFragment;
 
 import org.parceler.Parcels;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -40,6 +41,17 @@ public class OtherProfileActivity extends AppCompatActivity implements TweetAdap
         ((TweetSelectedListener) this).onTweetSelected(tweet);
     }
 
+    public String numFormatter(int n) {
+        DecimalFormat df = new DecimalFormat("#,###,##0.0");
+        if (n >= 1000000) {
+            return df.format(n / 1000000.0) + "M";
+        } else if (n >= 1000) {
+            return df.format(n / 1000.0) + "K";
+        } else {
+            return Integer.toString(n);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +70,9 @@ public class OtherProfileActivity extends AppCompatActivity implements TweetAdap
         tvName.setText(tweet.user.name);
         tvScreenName.setText("@" + tweet.user.screenName);
         tvTagline.setText(tweet.user.tagLine);
-        tvFollowers.setText(tweet.user.followersCount + " Followers");
-        tvFollowing.setText(tweet.user.followingCount + " Following");
+        tvFollowers.setText(numFormatter(tweet.user.followersCount) + " Followers");
+//        tvFollowers.setText(tweet.user.followersCount + " Followers");
+        tvFollowing.setText(numFormatter(tweet.user.followingCount) + " Following");
         // load profile image with Glide
         Glide.with(this)
                 .load(tweet.user.profileImageUrl)
@@ -68,9 +81,12 @@ public class OtherProfileActivity extends AppCompatActivity implements TweetAdap
 
         String screenName = getIntent().getStringExtra("screen_name");
 
+
+        // TODO deleted
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.flContainer, UserTimelineFragment.newInstance(screenName)).commit();
+
 
 
 //        populateUserHeadline(tweet);

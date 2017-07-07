@@ -21,8 +21,6 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     static final int EDIT_REQUEST_CODE = 20;
     static final int REQUEST_CODE_REPLY = 30;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

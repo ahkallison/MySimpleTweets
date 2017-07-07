@@ -18,6 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import java.text.DecimalFormat;
+
 import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -33,6 +35,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvScreenName;
     TextView tvRetweets;
     TextView tvLikes;
+    TextView tvReplies;
     ImageButton btnFavorited;
     ImageButton btnRetweeted;
     ImageButton btnReply;
@@ -54,6 +57,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     Integer position;
 
     static final int EDIT_REQUEST_CODE = 20;
+    static final int REQUEST_CODE_REPLY = 30;
 
     // declare client
     TwitterClient client;
@@ -72,6 +76,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvScreenName = (TextView) findViewById(R.id.tvScreenName);
         tvRetweets = (TextView) findViewById(R.id.tvRetweets);
         tvLikes = (TextView) findViewById(R.id.tvLikes);
+        tvReplies = (TextView) findViewById(R.id.tvReplies);
         btnFavorited = (ImageButton) findViewById(R.id.btnFavorited);
         btnRetweeted = (ImageButton) findViewById(R.id.btnRetweeted);
         btnReply = (ImageButton) findViewById(R.id.btnReply);
@@ -229,9 +234,20 @@ public class TweetDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(TweetDetailsActivity.this, ComposeActivity.class);
-                startActivityForResult(i, EDIT_REQUEST_CODE);
+                startActivityForResult(i, REQUEST_CODE_REPLY);
             }
         });
+    }
+
+    public String numFormatter(int n) {
+        DecimalFormat df = new DecimalFormat("#,###,##0.0");
+        if (n >= 1000000) {
+            return df.format(n / 1000000.0) + "M";
+        } else if (n >= 1000) {
+            return df.format(n / 1000.0) + "K";
+        } else {
+            return Integer.toString(n);
+        }
     }
 
     // TODO override backbutton
