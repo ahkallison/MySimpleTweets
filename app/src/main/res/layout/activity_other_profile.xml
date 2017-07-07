@@ -9,7 +9,8 @@
     <RelativeLayout
         android:id="@+id/rlUserHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
 
         <ImageView
             android:id="@+id/ivProfileImage"
@@ -24,18 +25,27 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/ivProfileImage"
+            android:layout_below="@+id/ivProfileImage"
             android:text="Name"
-            android:textSize="16sp"/>
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tvScreenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:text="ScreenName"/>
 
         <TextView
             android:id="@+id/tvTagline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/tvName"
-            android:layout_below="@+id/tvName"
+            android:layout_below="@+id/tvScreenName"
             android:text="Tagline"
-            android:textSize="12sp"/>
+            android:textColor="@android:color/black"/>
 
     </RelativeLayout>
 
@@ -44,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rlUserHeader"
+        android:layout_marginLeft="5dp"
         android:layout_marginBottom="10dp">
 
         <TextView
@@ -56,10 +67,17 @@
             android:id="@+id/tvFollowing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="40dp"
             android:text="5 Following"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/llCounts"
+        android:background="@color/medium_gray_50">
+    </View>
 
     <FrameLayout
         android:id="@+id/flContainer"

@@ -17,6 +17,8 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class OtherProfileActivity extends AppCompatActivity implements TweetAdapter.TweetAdapterListener {
 
     TwitterClient client;
@@ -44,6 +46,7 @@ public class OtherProfileActivity extends AppCompatActivity implements TweetAdap
         setContentView(R.layout.activity_other_profile);
 
         TextView tvName = (TextView) findViewById(R.id.tvName);
+        TextView tvScreenName = (TextView) findViewById(R.id.tvScreenName);
         TextView tvTagline = (TextView) findViewById(R.id.tvTagline);
         TextView tvFollowers = (TextView) findViewById(R.id.tvFollowers);
         TextView tvFollowing = (TextView) findViewById(R.id.tvFollowing);
@@ -53,11 +56,15 @@ public class OtherProfileActivity extends AppCompatActivity implements TweetAdap
         tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
 
         tvName.setText(tweet.user.name);
+        tvScreenName.setText("@" + tweet.user.screenName);
         tvTagline.setText(tweet.user.tagLine);
         tvFollowers.setText(tweet.user.followersCount + " Followers");
         tvFollowing.setText(tweet.user.followingCount + " Following");
         // load profile image with Glide
-        Glide.with(this).load(tweet.user.profileImageUrl).into(ivProfileImage);
+        Glide.with(this)
+                .load(tweet.user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(this, 150, 0))
+                .into(ivProfileImage);
 
         String screenName = getIntent().getStringExtra("screen_name");
 

@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -82,7 +83,11 @@ public class ProfileActivity extends AppCompatActivity {
         tvFollowers.setText(user.followersCount + " Followers");
         tvFollowing.setText(user.followingCount + " Following");
         // load profile image with Glide
-        Glide.with(this).load(user.profileImageUrl).into(ivProfileImage);
+        Glide
+                .with(this)
+                .load(user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(this, 150, 0))
+                .into(ivProfileImage);
     }
 
 

@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -30,8 +31,8 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
 //    // a numeric code to identify the edit activity
-//    static final int EDIT_REQUEST_CODE = 20;
-//    static final int REQUEST_CODE_REPLY = 30;
+    static final int EDIT_REQUEST_CODE = 20;
+    static final int REQUEST_CODE_REPLY = 30;
 
 
     public interface TweetSelectedListener {
@@ -185,6 +186,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 }
             });
 
+            btnReply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Tweet tweet = mTweets.get(getAdapterPosition());
+                    Intent i = new Intent(context, ReplyActivity.class);
+                    i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                    ((Activity) context).startActivityForResult(i, EDIT_REQUEST_CODE);
+                }
+            });
+
 
             btnFavorited.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -306,14 +317,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 }
             });
 
-//            btnReply.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent i = new Intent(context, ReplyActivity.class);
-//                    i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-//                    startActivityForResult(i, EDIT_REQUEST_CODE);
-//                }
-//            });
         }
 
 

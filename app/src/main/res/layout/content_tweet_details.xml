@@ -126,7 +126,7 @@
         android:id="@+id/btnReply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_chat_bubble_outline_black_24dp"
+        android:background="@drawable/reply_selector"
         android:layout_marginRight="70dp"
         android:layout_alignParentStart="true" />
 
@@ -135,15 +135,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/btnReply"
-        android:background="@drawable/ic_vector_retweet_stroke"
-        android:layout_marginRight="70dp"
-        android:tint="@color/btn_disabled"/>
+        android:background="@drawable/retweet_selector"
+        android:layout_marginRight="70dp"/>
 
     <ImageButton
         android:id="@+id/btnFavorited"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_vector_heart_stroke"
+        android:background="@drawable/heart_selector"
         android:layout_marginRight="70dp"
         android:layout_toRightOf="@+id/btnRetweeted"/>
 
@@ -152,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/btnFavorited"
-        android:background="@drawable/ic_vector_messages_stroke" />
+        android:background="@drawable/dm_selector" />
 </LinearLayout>
 
     <View
