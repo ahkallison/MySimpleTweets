@@ -41,7 +41,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ReplyActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".OtherProfileActivity"></activity>
+        <activity android:name=".OtherProfileActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

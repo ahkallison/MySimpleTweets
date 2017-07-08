@@ -225,7 +225,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(TweetDetailsActivity.this, ReplyActivity.class);
                 i.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-                startActivityForResult(i, EDIT_REQUEST_CODE);
+                startActivityForResult(i, REQUEST_CODE_REPLY);
             }
         });
 

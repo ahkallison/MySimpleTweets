@@ -41,6 +41,12 @@ public abstract class TweetsListFragment extends Fragment implements TweetAdapte
     SwipeRefreshLayout swipeContainer;
     MenuItem miActionProgressitem;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+    }
+
     // inflation happens inside onCreateView
     @Nullable
     @Override
@@ -48,12 +54,13 @@ public abstract class TweetsListFragment extends Fragment implements TweetAdapte
         // inflate the layout
         View v = inflater.inflate(R.layout.fragments_tweets_list, container, false);
 
-        // find the RecyclerView
-        rvTweets = (RecyclerView) v.findViewById(R.id.rvTweet);
         // init the arraylist (data source)
         tweets = new ArrayList<>();
         // construct the adapter from this data source
         tweetAdapter = new TweetAdapter(tweets, this);
+
+        // find the RecyclerView
+        rvTweets = (RecyclerView) v.findViewById(R.id.rvTweet);
 
         // TODO
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

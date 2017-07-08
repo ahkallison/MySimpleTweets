@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.codepath.apps.restclienttemplate.Tweet;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -114,6 +115,12 @@ public class HomeTimelineFragment extends TweetsListFragment {
                 throwable.printStackTrace();
             }
         });
+    }
+
+    public void onCreateNewTweet(Tweet tweet) {
+        tweets.add(0, tweet);
+        tweetAdapter.notifyItemInserted(0);
+        rvTweets.scrollToPosition(0);
     }
 
 }
