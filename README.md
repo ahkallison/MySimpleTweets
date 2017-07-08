@@ -1,8 +1,8 @@
-# Project 4 - *Name of App Here*
+# Project 4 - *Twitter*
 
-**Name of your app** is an android app that allows a user to view home and mentions timelines, view user profiles with user timelines, as well as compose and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
+**Twitter** is an android app that allows a user to view home and mentions timelines, view user profiles with user timelines, as well as compose and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **X** hours spent in total
+Time spent: **25** hours spent in total (this week)
 
 ## User Stories
 
@@ -47,18 +47,20 @@ The following **additional** features are implemented:
 * [x] Added state selected functionality to buttons
 * [x] Improved picture quality of profile images 
 * [x] Improved user interface of Twitter login activity
+* [x] Made the compose button as floating action button
+* [x] Implemented the ability to view all profile activities upon click on profile images
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/ahkallison/MySimpleTweets/blob/master/twitterWalkthrough2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+One of the major challenges for me was understanding fragments conceptually.
 
 ## Open-source libraries used
 
@@ -67,7 +69,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2017] [Allison Kao]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
