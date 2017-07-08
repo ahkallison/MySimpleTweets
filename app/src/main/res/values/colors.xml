@@ -24,7 +24,7 @@
     <color name="colorStreamBlue">#159CEB</color>
     <color name="colorTransparentBackground">#803f3f3f</color>
     <color name="colorGreyBackground">#d3d3d3</color>
-    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFFFFF</color>
 </resources>

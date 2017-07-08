@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,123 +49,39 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
                 startActivityForResult(i, REQUEST_CODE_REPLY);
             }
         });
-
-
-//        });//        // lookup the swipe container view
-//        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
-//        // set up refresh listener which triggers new data loading
-//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                // Your code to refresh the list here.
-//                // Make sure you call swipeContainer.setRefreshing(false)
-//                // once the network request has completed successfully.
-//                showProgressBar();
-//                fetchTimelineAsync(0);
-//            }
-//        // configure the refreshing colors
-//        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-//                android.R.color.holo_green_light,
-//                android.R.color.holo_orange_light,
-//                android.R.color.holo_red_light);
-
-//        // find the RecyclerView
-//        rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
-//
-//        // init the arraylist (data source)
-//        tweets = new ArrayList<>();
-//
-//        // construct the adapter from this data source
-//        tweetAdapter = new TweetAdapter(tweets);
-//
-//        // RecyclerView setup (layout manager, use adapter)
-//        rvTweets.setLayoutManager(new LinearLayoutManager(this));
-//
-//        // set the adapter
-//        rvTweets.setAdapter(tweetAdapter);
-//
-//        populateTimeline();
     }
 
-//    private void populateTimeline() {
-//        client.getHomeTimeline(0, new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                Log.d("TwitterClient", response.toString());
-//            }
-//
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-////                Log.d("TwitterClient", response.toString());
-//                // iterate through the JSON array
-//                // for each entry, deserialize the JSON object
-//
-//                fragmentTweetsList.addItems(response);
-//
-//                //tweetAdapter.clear();
-////                for (int i = 0; i < response.length(); i++) {
-////                    // convert each object to a TWeet model
-////                    // add that Tweet model to our data source
-////                    // notify the adapter that we've added an item
-////                    try {
-////                        Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
-////                        tweets.add(tweet);
-////                        tweetAdapter. notifyItemInserted(tweets.size() - 1);
-////                    } catch (JSONException e) {
-////                        e.printStackTrace();
-////                    }
-////                }
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//                Log.d("TwitterClient", responseString);
-//                throwable.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                Log.d("TwitterClient", errorResponse.toString());
-//                throwable.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-//                Log.d("TwitterClient", errorResponse.toString());
-//                throwable.printStackTrace();
-//            }
-//        });
-//    }
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // inflate the menu and add items to the action bar if it is present
         getMenuInflater().inflate(R.menu.menu_timeline, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-
-        // expand the search view and request focus
-        searchItem.expandActionView();
-        searchView.requestFocus();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // perform query here
-                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
-                searchView.clearFocus();
-                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
-                i.putExtra("q", query);
-                startActivity(i);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+//
+//        // expand the search view and request focus
+//        searchItem.expandActionView();
+//        searchView.requestFocus();
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // perform query here
+//                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+//                searchView.clearFocus();
+//                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+//                i.putExtra("q", query);
+//                startActivity(i);
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
         return super.onCreateOptionsMenu(menu);
     }
 
